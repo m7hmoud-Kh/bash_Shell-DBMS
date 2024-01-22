@@ -78,26 +78,66 @@ do
 	dataTypeColumn=()
 	;;
 	4)
-	echo "Enter Database Name"
-	read dbName
+	echo "Enter Table  Name"
+	read tblName
 	checkFoundOrNot
 	if [ $? -eq 1 ]
 	then
-		rm -R $dbName
+		numberOfField=$(awk -F' ' '{ if(NR == 1)  print NF }' $tblName)
+		i=1
+		valueArr=[ $numberOfField ]=''
+		while [ $numberOfField -ge  $i ]
+		do
+			columnName=$(awk -F' ' '{ if(NR == 1) print  $'$i' }' $tblName)
+			dataTypeField=$(awk -F' ' '{ if(NR == 2)  print  $'$i'  }' $tblName)
+			echo "Enter Value of "$columnName
+			read val
+			if [ $dataTypeField == 'Int' ]
+			then
+				case $val in 
+				*[0-9] )
+					valueArr[ $i ]=$val
+				;;
+				*)
+					echo "Error in data"
+				esac
+			else
+				valueArr[ $i ]=$val
+			fi
+			let i=i+1
+		done
+		echo ${valueArr[@]} >> $tblName
 	else
-		echo "Database Not Found"
+		echo "Table Not Found"
 	fi 
 	;;
 	5)
-	echo "Enter Database Name"
-	read dbName
+	echo "Enter table Name"
+	read tblName
 	checkFoundOrNot
 	if [ $? -eq 1 ]
 	then
-
-		cd $dbName/
+		set -x
+		select choice in all basedColumn
+		do
+			case $REPLY in 
+			1)
+			awk -F' ' '{ if (NR >= 3) print $0  }' $tblName
+			;;
+			2)
+			awk -F' ' '{for (i=1;i<=NF;i++) if ( NR == 1) print $i }' $tblName
+			echo "Enter Filed Number"
+			read filedNumber
+			echo "Enter Value"
+			read value
+			awk -F' ' '{ if(NR >= 3 && $'$filedNumber'=="'"$value"'")  print $0}' $tblName
+			;;
+			*)
+			echo "Option Not Found"
+			esac
+		done
 	else
-		echo "Database Not Found"
+		echo "Table Not Found"
 	fi
 	;;
 	*)
