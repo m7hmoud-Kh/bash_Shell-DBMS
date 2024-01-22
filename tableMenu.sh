@@ -78,14 +78,23 @@ do
 	dataTypeColumn=()
 	;;
 	4)
-	echo "Enter Database Name"
-	read dbName
+	echo "Enter Table  Name"
+	read tblName
 	checkFoundOrNot
 	if [ $? -eq 1 ]
 	then
-		rm -R $dbName
+		numberOfField=$(awk -F' ' '{ if(NR == 1)  print NF }' $tblName)
+		for i in {1..2}
+		do
+			echo $i
+			columnName=$(awk -F' ' '{ if(NR == 1) print  $i }' $tblName)
+			dataTypeField=$(awk -F' ' '{ if(NR == 2)  print $i }' $tblName)
+			echo $columnName
+			echo $dataTypeField
+			echo newLoop
+		done
 	else
-		echo "Database Not Found"
+		echo "Table Not Found"
 	fi 
 	;;
 	5)
