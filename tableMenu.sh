@@ -88,17 +88,24 @@ do
 		echo "Database Not Found"
 	fi 
 	;;
-	5)
+	7)
 
 select action in "DELETE" "DELETE_ALL"
 do
 	case $REPLY in
 	1)
-	read -p "Enter name table" table
+
+        checkFoundOrNot
+	if [ $? -eq 1 ]
+	then
+        read -p "Enter name table" table
+        else
+		echo "table Not Found"
+	fi 
         read -p "Enter number of field" field
         read -p "enter value match to delete " value
                                                                                                                                                            
-         awk '{ if (NR < 3) print $0 }' "$table" > temp_file && mv temp_file "$table"
+      awk -v vfield="$field" -v vvalue="$value" '$vfield != vvalue' "$table" > temp_file && mv temp_file "$table"
          echo delete row success
 	;;
 	2)
