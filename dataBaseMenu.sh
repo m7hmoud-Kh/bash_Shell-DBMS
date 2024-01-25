@@ -13,10 +13,10 @@ function checkFoundOrNot {
         done
 	return $foundName
 }
-cd DB/
 echo "What is you want to do in DB"
-select action in "CREATE" "LIST" "DROP" "CONNECT"
+select action in "CREATE" "LIST" "DROP" "CONNECT" "Exit"
 do
+	
 	case $REPLY in
 	1)
 	echo "Enter database Name"
@@ -54,6 +54,9 @@ do
 	else
 		echo "Database Not Found"
 	fi
+	;;
+	5)
+	exit
 	;;
 	*)
 	echo "Not Found This Action"

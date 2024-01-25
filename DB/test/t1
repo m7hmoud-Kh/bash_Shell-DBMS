@@ -1,0 +1,12 @@
+id name age
+Int String Int
+PK NotNull NotNull
+1 m 10
+2 k 20
+3 h 30
+4 u 40
+5 p 50
+6 c 60
+9 pp 50
+10 mk 90
+12 pp 9
