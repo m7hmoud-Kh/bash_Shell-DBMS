@@ -1,7 +1,0 @@
-name age
-String Int
-PK NotNull
-hello 20 
-hello2 90 
-h3 13 
-mk 78

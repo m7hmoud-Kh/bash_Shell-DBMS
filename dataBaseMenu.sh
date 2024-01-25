@@ -1,16 +1,8 @@
 #!/bin/bash
 PS3="Choose action from Menu "
 
-if [ -d DB ]
-  then
-  cd DB
 
-   else
-   mkdir DB   
-   cd DB
-fi
-
-select choice in  "Create" "Connect"  "List" "Drop"
+select choice in "CREATE" "CONNECT" "LIST" "DROP" "Exit"
 do
    case $REPLY in
 
@@ -54,6 +46,9 @@ if [ -d $dropdatabase ]
 else
     echo not found database
 fi
+;;
+5)
+exit
 ;;
 *) echo  $REPLY unknown choices.
 ;;

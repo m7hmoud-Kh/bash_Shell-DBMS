@@ -1,3 +1,0 @@
-id name age
-Int String Int
-PK NotNull NotNull
