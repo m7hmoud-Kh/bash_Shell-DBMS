@@ -1,64 +1,62 @@
 #!/bin/bash
 PS3="Choose action from Menu "
-function checkFoundOrNot {
 
-	let foundName=0
-        for dir in  `ls .` 
-        do
-          	if [ $dir == $dbName ]
-                then
-                    	let foundName=1
-                        break
-                fi
-        done
-	return $foundName
-}
-echo "What is you want to do in DB"
-select action in "CREATE" "LIST" "DROP" "CONNECT" "Exit"
+if [ -d DB ]
+  then
+  cd DB
+
+   else
+   mkdir DB   
+   cd DB
+fi
+
+select choice in  "Create" "Connect"  "List" "Drop"
 do
-	
-	case $REPLY in
-	1)
-	echo "Enter database Name"
-	read dbName
-	checkFoundOrNot
-	if [ $? -eq  1 ]
-	then
-		echo "Database Already Exist"
-	else
-		mkdir $dbName
-                echo "Database Created Successfully"
-	fi
-	;;
-	2)
-	ls -l 
-	;;
-	3)
-	echo "Enter Database Name"
-	read dbName
-	checkFoundOrNot
-	if [ $? -eq 1 ]
-	then
-		rm -R $dbName
-	else
-		echo "Database Not Found"
-	fi 
-	;;
-	4)
-	echo "Enter Database Name"
-	read dbName
-	checkFoundOrNot
-	if [ $? -eq 1 ]
-	then
-		source ../tableMenu.sh $dbName
-	else
-		echo "Database Not Found"
-	fi
-	;;
-	5)
-	exit
-	;;
-	*)
-	echo "Not Found This Action"
-	esac
+   case $REPLY in
+
+1)
+
+   read -p "name database:" database 
+if [ -d  $database ]
+   then
+   echo "already created" 
+else
+   mkdir $database
+#  cd $database
+#touch DDL.sh
+# cp ../../DDL.sh ./DDL.sh  
+
+   echo $database create success 
+fi
+;;
+2) 
+  lsdatabas=`ls`
+   read -p "enter name database use:" usedatabase 
+if [ -d  $usedatabase  ]
+   then
+   source ../tableMenu.sh $usedatabase
+   cd $usedatabase
+   echo use $usedatabase database
+    name=$usedatabase
+else
+   echo "   $usedatabase no found database" 
+   ls
+fi
+;;
+3) ls
+;;
+4) ls 
+   read -p "enter name database drop:" dropdatabase 
+if [ -d $dropdatabase ]
+   then
+   rm -r $dropdatabase
+   echo drop success
+else
+    echo not found database
+fi
+;;
+*) echo  $REPLY unknown choices.
+;;
+esac
 done
+
