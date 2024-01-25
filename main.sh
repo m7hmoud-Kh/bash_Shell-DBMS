@@ -12,6 +12,5 @@ if [ $found -eq  1 ]
 then
 	mkdir DB
 fi
-cd DB/
-source ../dataBaseMenu.sh
+source ./dataBaseMenu.sh
 
