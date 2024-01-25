@@ -1,6 +1,0 @@
-id name age
-Int String Int
-PK NotNull NotNull
-1 kasem 23
-4 khairy 42
-2 rady 2
