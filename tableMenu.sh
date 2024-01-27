@@ -37,6 +37,17 @@ do
 	3)
 	echo "Enter New table Name"
 	read tblName
+	flag=0
+	while [ $flag -eq 0 ]
+	do
+		if [[ $tblName =~ " " ]]; then
+			echo "Table Contain Space Please Try Again"
+			echo "Enter Table Name"
+			read tblName
+		else
+			flag=1
+		fi
+	done
 	checkFoundOrNot
 	if [ $? -eq  1 ]
 	then
